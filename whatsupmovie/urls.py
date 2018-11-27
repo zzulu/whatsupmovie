@@ -22,6 +22,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('apps.accounts.urls')),
     path('movies/', include('apps.movies.urls')),
     path('', lambda r: redirect('movies:list'), name='root')
 ]

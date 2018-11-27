@@ -7,6 +7,16 @@
   <title>What's up Movie</title>
 </head>
 <body>
+  {% if user.is_authenticated %}
+    <p>
+      Hi, {{ user.username }}. <a href="{% url 'accounts:logout' %}">Log out</a>.
+    </p>
+  {% else %}
+    <p>
+      <a href="{% url 'accounts:login' %}">Log in</a>.
+    </p>
+  {% endif %}
+
   {% block container %}{% endblock %}
 </body>
 </html>
