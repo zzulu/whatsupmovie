@@ -4,12 +4,27 @@
 
 <h1>Movie Detail</h1>
 
-<div>
+<p>
   <a href="{% url 'movies:list' %}">List</a>
-</div>
+</p>
 
 <img src="{{ movie.image_url }}" alt="Movie Image">
 <h3>{{ movie.title }}</h3>
 <p>{{ movie.content }}</p>
+<p><b>Average Score : </b>{{ movie.get_avg_rating }}</p>
+
+{% if my_rating %}
+
+<p><b>My Score : </b>{{ my_rating }}</p>
+
+{% else %}
+
+<form action="{% url 'movies:ratings_create' movie.pk %}"  method="post">
+  {% csrf_token %}
+  {{ rating_form }}
+  <input type="submit" value="Submit">
+</form>
+
+{% endif %}
 
 {% endblock %}
