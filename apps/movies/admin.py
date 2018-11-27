@@ -7,7 +7,7 @@ class MovieAdmin(admin.ModelAdmin):
         (
             None,
             {
-                'fields': ['title','content',]
+                'fields': ['title','content','image',]
             },
         ),
     ]

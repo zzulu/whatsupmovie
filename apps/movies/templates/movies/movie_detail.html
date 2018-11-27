@@ -8,6 +8,7 @@
   <a href="{% url 'movies:list' %}">List</a>
 </div>
 
+<img src="{{ movie.image_url }}" alt="Movie Image">
 <h3>{{ movie.title }}</h3>
 <p>{{ movie.content }}</p>
 
