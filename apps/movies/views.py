@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Movie, Rating
 from .forms import RatingForm
 
@@ -21,7 +22,7 @@ class MovieDetail(DetailView):
         return context
 
 
-class RatingCreate(CreateView):
+class RatingCreate(LoginRequiredMixin, CreateView):
     http_method_names = ['post',]
     model = Rating
     fields = ['score',]
