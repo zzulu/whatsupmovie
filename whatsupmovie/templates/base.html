@@ -9,7 +9,7 @@
 <body>
   {% if user.is_authenticated %}
     <p>
-      Hi, {{ user.username }}. <a href="{% url 'accounts:logout' %}">Log out</a>.
+      Hi, <a href="{% url 'accounts:profile_detail' %}">{{ user.username }}</a>. <a href="{% url 'accounts:logout' %}">Log out</a>.
     </p>
   {% else %}
     <p>
