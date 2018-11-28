@@ -19,11 +19,11 @@ class RatingAdmin(admin.ModelAdmin):
         (
             None,
             {
-                'fields': ['user', 'movie', 'score',]
+                'fields': ['user', 'movie', 'score', 'content',]
             },
         ),
     ]
-    list_display = ('score', 'user', 'movie', 'created_at', 'updated_at',)
+    list_display = ('score', 'content', 'user', 'movie', 'created_at', 'updated_at',)
 
 
 admin.site.register(Movie, MovieAdmin)

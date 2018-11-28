@@ -7,7 +7,7 @@
 <ul>
   {% for movie in movies %}
   <li>
-    <a href="{% url 'movies:detail' movie.pk %}">{{ movie.title }}</a>
+    <a href="{% url 'movies:detail' movie.pk %}">{{ movie.title }}</a> - Avg : {{ movie.get_avg_rating }}
   </li>
   {% endfor %}
 </ul>

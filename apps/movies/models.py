@@ -36,6 +36,7 @@ class Rating(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     score = models.FloatField(default=0.0)
+    content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
