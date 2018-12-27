@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Movie, Rating
 from .forms import RatingForm
+from .services import get_recommended_movies
 
 
 class MovieList(ListView):
@@ -44,3 +45,15 @@ class RatingDelete(LoginRequiredMixin, DeleteView):
         if self.get_object().user != self.request.user:
             return HttpResponseForbidden("You are not allowed to delete this Comment")
         return super().delete(request, *args, **kwargs)
+
+
+class MovieRecommend(LoginRequiredMixin, TemplateView):
+    template_name = 'movies/movie_recommend.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.rating_set.count() < 3:
+            context['not_ready'] = '영화 추천을 위하여 3개의 영화에 평점을 매겨주세요.'
+        else:
+            context['recommended_movies'] = get_recommended_movies(self.request.user)
+        return context

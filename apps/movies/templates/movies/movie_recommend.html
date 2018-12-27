@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block container %}
+
+<h1>Movie Recommendation</h1>
+
+<p>
+  <a href="{% url 'movies:list' %}">List</a>
+</p>
+
+<ul>
+  {% if not_ready %}
+    <li>{{ not_ready }}</li>
+  {% else %}
+    {% for score, movie in recommended_movies %}
+      <li>
+        {{ movie }}
+      </li>
+    {% endfor %}
+  {% endif %}
+</ul>
+
+{% endblock %}
