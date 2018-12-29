@@ -20,7 +20,20 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'n+(md!rmrkeqca7^f6c^#9u$z#&f3d%tt26gl2j1o_c9_iqwep'
+import json
+from django.core.exceptions import ImproperlyConfigured
+
+with open(os.path.join(BASE_DIR, 'secrets.json'), 'r') as f:
+    secrets = json.loads(f.read())
+
+def get_secret(setting, secrets=secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_message = "Set the key '{}' in secrets.json file.".format(setting)
+        raise ImproperlyConfigured(error_message)
+
+SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -124,6 +137,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'whatsupmovie', 'assets'),
+    os.path.join(BASE_DIR, 'node_modules'),
 ]
 
 # Media files
@@ -134,3 +148,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Redirect URLs
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+
+# Naver API Keys
+X_NAVER_CLIENT_ID = get_secret('X_NAVER_CLIENT_ID')
+X_NAVER_CLIENT_SECRET = get_secret('X_NAVER_CLIENT_SECRET')

@@ -1,46 +1,65 @@
 {% extends 'base.html' %}
 
+{% load movie_extras %}
+
 {% block container %}
 
-<h1>Movie Detail</h1>
+<h1 class="py-4">{{ movie.title }}</h1>
 
-<p>
-  <a href="{% url 'movies:list' %}">List</a>
-</p>
+<div class="row pb-5">
+  <div class="col-4">
+    <img src="{{ movie.image_url }}" class="w-100" alt="Movie Image">    
+  </div>
+  <div class="col-8">
+    <div class="mb-4">
+      <h5>
+        <span class="badge badge-dark">&starf; {{ movie.get_avg_rating | floatformat:2 }}</span>
+      </h5>
+      <p>{{ movie.content }}</p>
+    </div>
 
-<img src="{{ movie.image_url }}" alt="Movie Image">
-<h3>{{ movie.title }}</h3>
-<p>{{ movie.content }}</p>
-<p><b>Average Score : </b>{{ movie.get_avg_rating }}</p>
+    <h3>리뷰</h3>
 
-{% if user.is_authenticated %}
-
-  {% if not rating_exists %}
-
-    <form action="{% url 'movies:ratings_create' movie.pk %}" method="post">
-      {% csrf_token %}
-      {{ rating_form }}
-      <input type="submit" value="Submit">
-    </form>
-
-  {% endif %}
-
-{% endif %}
-
-<h3>Reviews</h3>
-
-<ul>
-  {% for rating in movie.rating_set.all %}
-  <li>
-    {{ rating.score }} - {{ rating.content }} <b>by {{ rating.user.username }}</b>
-    {% if user == rating.user %}
-    <form action="{% url 'movies:ratings_delete' movie.pk rating.pk %}" method="post" style="display: inline-block;">
-      {% csrf_token %}
-      <input type="submit" value="Delete">
-    </form>
+    {% if user.is_authenticated %}
+      {% if not rating_exists %}
+        {{ form.non_field_errors }}
+        <form action="{% url 'movies:ratings_create' movie.pk %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <fieldset class="rating">
+              {% for choice in rating_form.score.field.choices %}
+                <input type="radio" id="star{{ choice.1 | remove_dot }}" name="score" value="{{ choice.0 }}" required /><label class="{{ choice.1 | last_char_is_equal_to:'0' | yesno:'full,half' }}" for="star{{ choice.1 | remove_dot }}"></label>
+              {% endfor %}
+            </fieldset>
+            {{ rating_form.score.errors }}
+          </div>
+          <div class="form-group">
+            {{ rating_form.content }}
+            {{ rating_form.content.errors }}
+          </div>
+          <input type="submit" value="작성" class="btn btn-primary">
+        </form>
+      {% endif %}
     {% endif %}
-  </li>
-  {% endfor %}
-</ul>
+
+    <dl>
+      {% for rating in movie.rating_set.all %}
+      <hr>
+      <dt class="mb-1">
+        {% firstof rating.user.profile.nickname rating.user.username %}<span class="badge badge-dark ml-2">&starf; {{ rating.score }}</span>
+      </dt>
+      <dd>
+        {{ rating.content }}
+        {% if user == rating.user %}
+        <form action="{% url 'movies:ratings_delete' movie.pk rating.pk %}" method="post" style="display: inline-block;">
+          {% csrf_token %}
+          <input type="submit" value="삭제" class="btn btn-sm btn-danger py-0 px-1">
+        </form>
+        {% endif %}
+      </dd>
+      {% endfor %}
+    </dl>
+  </div>
+</div>
 
 {% endblock %}

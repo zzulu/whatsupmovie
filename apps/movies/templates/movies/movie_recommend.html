@@ -2,22 +2,36 @@
 
 {% block container %}
 
-<h1>Movie Recommendation</h1>
-
-<p>
-  <a href="{% url 'movies:list' %}">List</a>
-</p>
-
-<ul>
-  {% if not_ready %}
-    <li>{{ not_ready }}</li>
-  {% else %}
-    {% for score, movie in recommended_movies %}
-      <li>
-        {{ movie }}
-      </li>
-    {% endfor %}
-  {% endif %}
-</ul>
+<h1 class="py-4">추천 영화</h1>
+  
+<div class="row">
+{% if not_ready %}
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        {{ not_ready }}
+      </div>
+    </div>
+  </div>
+{% else %}
+  {% for _, movie in recommended_movies %}
+  <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
+    <a href="{% url 'movies:detail' movie.pk %}" class="card-wrapper">
+      <div class="card">
+        <img class="card-img-top" src="{{ movie.image_url }}" alt="Movie Poster">
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ movie.title }}
+          </h5>
+          <p class="card-text">
+            <span class="badge badge-dark">&starf; {{ movie.get_avg_rating | floatformat:2 }}</span>
+          </p>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+{% endif %}
+</div>
 
 {% endblock %}

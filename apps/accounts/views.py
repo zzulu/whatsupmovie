@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate, login
 from .models import Profile
-from .forms import ProfileForm
+from .forms import ProfileForm, BootstrapUserCreationForm, BootstrapPasswordChangeForm
 
 
 class Login(LoginView):
@@ -20,7 +20,7 @@ class Logout(LogoutView):
 
 class Signup(CreateView):
     model = settings.AUTH_USER_MODEL
-    form_class = UserCreationForm
+    form_class = BootstrapUserCreationForm
     template_name = 'registration/signup.html'
     success_url = reverse_lazy('movies:list')
 
@@ -35,6 +35,7 @@ class Signup(CreateView):
 
 class PasswordChange(PasswordChangeView):
     template_name = 'accounts/password_change_form.html'
+    form_class = BootstrapPasswordChangeForm
     success_url = reverse_lazy('accounts:profile_detail')
 
 

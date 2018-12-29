@@ -1,0 +1,13 @@
+{
+  "name": "whatsupmovie",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:zzulu/whatsupmovie.git",
+  "author": "Junwoo Hwang <capollux10@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^4.2.1",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.6"
+  }
+}

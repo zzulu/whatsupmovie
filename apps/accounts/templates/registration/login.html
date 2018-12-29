@@ -1,17 +1,38 @@
 {% extends 'base.html' %}
 
+{% load account_extras %}
+
 {% block container %}
 
-<h1>Login</h1>
+<h1 class="py-4">로그인</h1>
 
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Submit">
-</form>
-
-<p>
-  <a href="{% url 'accounts:signup' %}">Sign up</a>
-</p>
+<div class="mb-5">
+  {% if form.non_field_errors %}
+  <div class="alert alert-danger" role="alert">
+    {{ form.non_field_errors | join:'<br>' | safe }}
+  </div>
+  {% endif %}
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="{{ form.username.id_for_label }}">사용자 이름</label>
+      {{ form.username | add_class:'form-control' }}
+      <small class="form-text text-muted">{{ form.username.help_text | li_to_br | safe }}</small>
+      {% for error in form.username.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.password.id_for_label }}">비밀번호</label>
+      {{ form.password | add_class:'form-control' }}
+      <small class="form-text text-muted">{{ form.password.help_text | li_to_br | safe }}</small>
+      {% for error in form.password.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+      {% endfor %}
+    </div>
+    <input type="submit" value="로그인" class="btn btn-primary">
+    <a href="{% url 'accounts:signup' %}" class="btn btn-link">회원가입</a>
+  </form>
+</div>
 
 {% endblock %}

@@ -1,0 +1,37 @@
+/* SpoqaHanSans */
+
+@font-face {
+  font-family: 'SpoqaHanSans';
+  src: url('../fonts/SpoqaHanSans/SpoqaHanSans-Thin.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/SpoqaHanSans/SpoqaHanSans-Thin.woff2') format('woff2'),
+       url('../fonts/SpoqaHanSans/SpoqaHanSans-Thin.ttf')  format('truetype'); /* Safari, Android, iOS */
+
+  font-weight:  100;
+}
+
+@font-face {
+  font-family: 'SpoqaHanSans';
+  src: url('../fonts/SpoqaHanSans/SpoqaHanSans-Light.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/SpoqaHanSans/SpoqaHanSans-Light.woff2') format('woff2'),
+       url('../fonts/SpoqaHanSans/SpoqaHanSans-Light.ttf')  format('truetype'); /* Safari, Android, iOS */
+
+  font-weight:  300;
+}
+
+@font-face {
+  font-family: 'SpoqaHanSans';
+  src: url('../fonts/SpoqaHanSans/SpoqaHanSans-Regular.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/SpoqaHanSans/SpoqaHanSans-Regular.woff2') format('woff2'),
+       url('../fonts/SpoqaHanSans/SpoqaHanSans-Regular.ttf')  format('truetype'); /* Safari, Android, iOS */
+
+  font-weight:  400;
+}
+
+@font-face {
+  font-family: 'SpoqaHanSans';
+  src: url('../fonts/SpoqaHanSans/SpoqaHanSans-Bold.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/SpoqaHanSans/SpoqaHanSans-Bold.woff2') format('woff2'),
+       url('../fonts/SpoqaHanSans/SpoqaHanSans-Bold.ttf')  format('truetype'); /* Safari, Android, iOS */
+
+  font-weight:  700;
+}

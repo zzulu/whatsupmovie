@@ -12,7 +12,7 @@ class Movie(models.Model):
     content = models.TextField()
     image = ProcessedImageField(
         upload_to=movie_image_path,
-        processors=[ResizeToFill(500, 500)],
+        processors=[ResizeToFill(400, 600)],
         format='PNG', # or JPEG, etc.
         blank=True,
     ) 

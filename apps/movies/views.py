@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator
 from .models import Movie, Rating
 from .forms import RatingForm
 from .services import get_recommended_movies
@@ -10,6 +11,7 @@ from .services import get_recommended_movies
 class MovieList(ListView):
     model = Movie
     context_object_name = 'movies'
+    paginate_by = 12
 
 
 class MovieDetail(DetailView):

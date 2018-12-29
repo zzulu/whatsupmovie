@@ -2,12 +2,42 @@
 
 {% block container %}
 
-<h1>Edit Profile</h1>
+<h1 class="py-4">프로필 수정</h1>
 
-<form method="post" enctype="multipart/form-data">{% csrf_token %}
-  <h3>Profile</h3>
-  {{ form.as_p }}
-  <input type="submit" value="Save">
-</form>
+<div class="pb-5">
+  {% if form.non_field_errors %}
+  <div class="alert alert-danger" role="alert">
+    {{ form.non_field_errors | join:'<br>' | safe }}
+  </div>
+  {% endif %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="{{ form.nickname.id_for_label }}">별명</label>
+      {{ form.nickname }}
+      {{ form.nickname.errors }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.about.id_for_label }}">자기소개</label>
+      {{ form.about }}
+      {{ form.about.errors }}
+    </div>
+    <div class="form-group">
+      <label for="{{ form.image.id_for_label }}">프로필 사진</label>
+      <div class="custom-file">
+        {{ form.image }}
+        <label id="label_image" class="custom-file-label" for="{{ form.image.id_for_label }}"></label>
+        {{ form.image.errors }}
+      </div>
+    </div>
+    <input type="submit" value="수정하기" class="btn btn-primary">
+  </form>
+</div>
+
+<script>
+  document.getElementById('id_image').addEventListener('change', function(e) {
+    document.getElementById('label_image').innerHTML = event.target.files[0].name;
+  })
+</script>
 
 {% endblock %}

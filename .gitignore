@@ -119,3 +119,9 @@ dmypy.json
 
 # Media files
 media
+
+# node_modules
+node_modules
+
+# Secrets
+secrets.json

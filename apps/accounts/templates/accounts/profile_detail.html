@@ -2,26 +2,31 @@
 
 {% block container %}
 
-<h1>Account</h1>
+<h1 class="py-4">계정 정보</h1>
+<div>
+  <img src="{{ user.profile.image_url }}" alt="profile image">  
+</div>
 
-<h3>User Info</h3>
+<div class="py-4">
+  <label>사용자 이름</label>
+  <p>
+    {{ user.username }}  
+  </p>
 
-<p><b>username : </b> {{ user.username }}</p>
-<p><b>first name : </b> {{ user.first_name }}</p>
-<p><b>last name : </b> {{ user.last_name }}</p>
-<p><b>email : </b> {{ user.email }}</p>
+  <label>별명</label>
+  <p>
+    {{ user.profile.nickname | default:'-' }}
+  </p> 
 
-<p>
-  <a href="{% url 'accounts:password_change' %}">Change Password</a>
-</p>
+  <label>자기소개</label>
+  <p>
+    {{ user.profile.about | default:'-' }}
+  </p>
+</div>
 
-<h3>Profile</h3>
-
-<p><b>Image : </b><img src="{{ user.profile.image_url }}" alt="profile image"></p>
-<p><b>About : </b>{{ user.profile.about }}</p>
-
-<p>
-  <a href="{% url 'accounts:profile_update' %}">Edit Profile</a>
-</p>
+<div>
+  <a class="btn btn-info" href="{% url 'accounts:profile_update' %}">프로필 수정</a>
+  <a class="btn btn-danger" href="{% url 'accounts:password_change' %}">비밀번호 변경</a>
+</div>
 
 {% endblock %}

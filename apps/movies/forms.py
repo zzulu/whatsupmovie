@@ -13,8 +13,10 @@ class RatingForm(forms.ModelForm):
         (2.0,'2.0'),
         (1.5,'1.5'),
         (1.0,'1.0'),
+        (0.5,'0.5'),
     )
-    score = forms.ChoiceField(label='Score', choices=SCORES)
+    score = forms.ChoiceField(choices=SCORES, widget=forms.RadioSelect())
+    content = forms.CharField(widget=forms.Textarea(attrs={'class': 'noresize form-control', 'rows':4}))
 
     class Meta:
         model = Rating
