@@ -91,8 +91,12 @@ WSGI_APPLICATION = 'whatsupmovie.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': get_secret('DATABASE_HOST'),
+        'PORT': '3306',
+        'NAME': 'whatsupmovie',
+        'USER': get_secret('DATABASE_USERNAME'),
+        'PASSWORD': get_secret('DATABASE_PASSWORD'),
     }
 }
 
