@@ -1,0 +1,16 @@
+[Unit]
+Description=uWSGI Service
+After=syslog.target
+
+[Service]
+User=ubuntu
+ExecStart=/home/ubuntu/.pyenv/versions/whatsupmovie-venv/bin/uwsgi -i /home/ubuntu/whatsupmovie/.config/uwsgi/whatsupmovie.ini
+
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target

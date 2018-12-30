@@ -125,3 +125,7 @@ node_modules
 
 # Secrets
 secrets.json
+
+# Temp & Logs
+tmp
+log
