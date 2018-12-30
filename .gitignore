@@ -129,3 +129,6 @@ secrets.json
 # Temp & Logs
 tmp
 log
+
+# Collected Static Files
+static
