@@ -4,42 +4,64 @@
 
 {% block container %}
 
-<h1 class="py-4">회원 가입</h1>
+<div class="row flex-column accounts">
+  <div class="col-11 offset-sm-1 col-sm-10 offset-md-2 col-md-8">
+    <h1 class="big-title">회원 가입</h1>
 
-<div class="mb-5">
-  {% if form.non_field_errors %}
-  <div class="alert alert-danger" role="alert">
-    {{ form.non_field_errors | join:'<br>' | safe }}
+    <div class="mt-3 mb-5">
+      {% if form.non_field_errors %}
+      <div class="alert alert-danger" role="alert">
+        {{ form.non_field_errors | join:'<br>' | safe }}
+      </div>
+      {% endif %}
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group profile-form">
+          {{ form.username | add_class:'form-control profile-input' }}
+          <label for="{{ form.username.id_for_label }}">사용자 이름</label>
+          <small class="form-text text-muted">{{ form.username.help_text | li_to_br | safe }}</small>
+          {% for error in form.username.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+          {% endfor %}
+        </div>
+        <div class="form-group profile-form">
+          {{ form.password1 | add_class:'form-control profile-input' }}
+          <label for="{{ form.password1.id_for_label }}">비밀번호</label>
+          <small class="form-text text-muted">{{ form.password1.help_text | li_to_br | safe }}</small>
+          {% for error in form.password1.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+          {% endfor %}
+        </div>
+        <div class="form-group profile-form">
+          {{ form.password2 | add_class:'form-control profile-input' }}
+          <label for="{{ form.password2.id_for_label }}">비밀번호 확인</label>
+          <small class="form-text text-muted">{{ form.password2.help_text | li_to_br | safe }}</small>
+          {% for error in form.password2.errors %}
+            <div class="invalid-feedback">{{ error }}</div>
+          {% endfor %}
+        </div>
+        <input type="submit" value="가입하기" class="btn btn-movie">
+      </form>
+    </div>
   </div>
-  {% endif %}
-  <form method="post">
-    {% csrf_token %}
-    <div class="form-group">
-      <label for="{{ form.username.id_for_label }}">사용자 이름</label>
-      {{ form.username | add_class:'form-control' }}
-      <small class="form-text text-muted">{{ form.username.help_text | li_to_br | safe }}</small>
-      {% for error in form.username.errors %}
-        <div class="invalid-feedback">{{ error }}</div>
-      {% endfor %}
-    </div>
-    <div class="form-group">
-      <label for="{{ form.password1.id_for_label }}">비밀번호</label>
-      {{ form.password1 | add_class:'form-control' }}
-      <small class="form-text text-muted">{{ form.password1.help_text | li_to_br | safe }}</small>
-      {% for error in form.password1.errors %}
-        <div class="invalid-feedback">{{ error }}</div>
-      {% endfor %}
-    </div>
-    <div class="form-group">
-      <label for="{{ form.password2.id_for_label }}">비밀번호 확인</label>
-      {{ form.password2 | add_class:'form-control' }}
-      <small class="form-text text-muted">{{ form.password2.help_text | li_to_br | safe }}</small>
-      {% for error in form.password2.errors %}
-        <div class="invalid-feedback">{{ error }}</div>
-      {% endfor %}
-    </div>
-    <input type="submit" value="가입하기" class="btn btn-primary">
-  </form>
 </div>
 
+<script>
+  const inputUsername = document.querySelector(".profile-form input#id_username")
+  const inputPassword1 = document.querySelector(".profile-form input#id_password1")
+  const inputPassword2 = document.querySelector(".profile-form input#id_password2")
+
+  function focusOut() {
+      if (this.value != ""){
+          this.classList.add("has-content");
+      } else {
+          this.classList.remove("has-content")
+      }
+  }
+
+  inputUsername.addEventListener("focusout", focusOut);
+  inputPassword1.addEventListener("focusout", focusOut);
+  inputPassword2.addEventListener("focusout", focusOut);
+
+</script>
 {% endblock %}

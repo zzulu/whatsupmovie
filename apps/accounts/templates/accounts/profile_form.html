@@ -2,36 +2,40 @@
 
 {% block container %}
 
-<h1 class="py-4">프로필 수정</h1>
+<div class="row flex-column accounts">
+  <div class="col-11 offset-sm-1 col-sm-10 offset-md-2 col-md-8">
+    <h1 class="profile-title">프로필 수정</h1>
 
-<div class="pb-5">
-  {% if form.non_field_errors %}
-  <div class="alert alert-danger" role="alert">
-    {{ form.non_field_errors | join:'<br>' | safe }}
-  </div>
-  {% endif %}
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="form-group">
-      <label for="{{ form.nickname.id_for_label }}">별명</label>
-      {{ form.nickname }}
-      {{ form.nickname.errors }}
-    </div>
-    <div class="form-group">
-      <label for="{{ form.about.id_for_label }}">자기소개</label>
-      {{ form.about }}
-      {{ form.about.errors }}
-    </div>
-    <div class="form-group">
-      <label for="{{ form.image.id_for_label }}">프로필 사진</label>
-      <div class="custom-file">
-        {{ form.image }}
-        <label id="label_image" class="custom-file-label" for="{{ form.image.id_for_label }}"></label>
-        {{ form.image.errors }}
+    <div class="my-5">
+      {% if form.non_field_errors %}
+      <div class="alert alert-danger" role="alert">
+        {{ form.non_field_errors | join:'<br>' | safe }}
       </div>
+      {% endif %}
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group profile-form">
+          {{ form.nickname }}
+          <label for="{{ form.nickname.id_for_label }}">별명</label>
+          {{ form.nickname.errors }}
+        </div>
+        <div class="form-group profile-form">
+          {{ form.about }}
+          <label for="{{ form.about.id_for_label }}">자기소개</label>
+          {{ form.about.errors }}
+        </div>
+        <div class="form-group profile-form">
+          <div class="custom-file">
+            {{ form.image }}
+            <label for="{{ form.image.id_for_label }}">프로필 사진</label>
+            {{ form.image.errors }}
+          </div>
+          <label id="label_image" class="custom-file-label profile-extra-label" for="{{ form.image.id_for_label }}"></label>
+        </div>
+        <input type="submit" value="수정하기" class="btn btn-movie mt-2">
+      </form>
     </div>
-    <input type="submit" value="수정하기" class="btn btn-primary">
-  </form>
+  </div>
 </div>
 
 <script>
@@ -39,5 +43,23 @@
     document.getElementById('label_image').innerHTML = event.target.files[0].name;
   })
 </script>
+
+<script>
+    const inputNickname = document.querySelector(".profile-form input#id_nickname")
+    const inputAbout = document.querySelector(".profile-form textarea#id_about")
+    const inputImage = document.querySelector(".profile-form input#id_image")
+  
+    function focusOut() {
+        if (this.value != ""){
+            this.classList.add("has-content");
+        } else {
+            this.classList.remove("has-content")
+        }
+    }
+  
+    inputNickname.addEventListener("focusout", focusOut);
+    inputAbout.addEventListener("focusout", focusOut);
+    inputImage.addEventListener("focusout", focusOut);
+  </script>
 
 {% endblock %}
