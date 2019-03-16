@@ -26,4 +26,4 @@ class Profile(models.Model):
         return reverse('accounts:profile_detail')
 
     def image_url(self):
-        return self.image.url if self.image else '/static/images/blank_user.png' # set default image
+        return self.image.url if self.image else '/static/images/user_dark.png' # set default image
