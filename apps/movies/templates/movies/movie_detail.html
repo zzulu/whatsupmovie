@@ -39,7 +39,7 @@
               </div>
               <fieldset class="rating">
                 {% for choice in rating_form.score.field.choices %}
-                  <input type="radio" id="star{{ choice.1 | remove_dot }}" name="score" value="{{ choice.0 }}" required /><label class="{{ choice.1 | last_char_is_equal_to:'0' | yesno:'full,half' }}" for="star{{ choice.1 | remove_dot }}"></label>
+                  <input type="radio" id="star{{ choice.1 | remove_dot }}" name="score" value="{{ choice.0 }}" required {% if choice.0 == 3.5 %}checked{% endif %}/><label class="{{ choice.1 | last_char_is_equal_to:'0' | yesno:'full,half' }}" for="star{{ choice.1 | remove_dot }}"></label>
                 {% endfor %}
               </fieldset>
               {{ rating_form.score.errors }}
@@ -64,7 +64,6 @@
         <dd>
           {{ rating.content }}
           {% if user == rating.user %}
-          
         </dd>
         <form action="{% url 'movies:ratings_delete' movie.pk rating.pk %}" method="post" style="display: inline-block;">
           {% csrf_token %}
