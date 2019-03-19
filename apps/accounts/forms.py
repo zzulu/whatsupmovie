@@ -9,6 +9,12 @@ class ProfileForm(forms.ModelForm):
     about = forms.CharField(widget=forms.Textarea(attrs={'class':'noresize form-control profile-input', 'rows':4}), required=False)
     image = forms.FileField(widget=forms.FileInput(attrs={'class':'custom-file-input profile-input'}), required=False)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for key, field in self.fields.items():
+            if getattr(self.instance, key) != '':
+                field.widget.attrs['class'] += ' has-content'
+
     class Meta:
         model = Profile
         fields = ['nickname','about','image',]

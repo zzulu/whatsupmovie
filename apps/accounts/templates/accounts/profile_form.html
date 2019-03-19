@@ -45,16 +45,16 @@
 </script>
 
 <script>
-    const inputNickname = document.querySelector(".profile-form input#id_nickname")
-    const inputAbout = document.querySelector(".profile-form textarea#id_about")
-    const inputImage = document.querySelector(".profile-form input#id_image")
+    const inputNickname = document.getElementById("id_nickname")
+    const inputAbout = document.getElementById("id_about")
+    const inputImage = document.getElementById("id_image")
   
     function focusOut() {
-        if (this.value != ""){
-            this.classList.add("has-content");
-        } else {
-            this.classList.remove("has-content")
-        }
+      if (this.value != ""){
+          this.classList.add("has-content");
+      } else {
+          this.classList.remove("has-content")
+      }
     }
   
     inputNickname.addEventListener("focusout", focusOut);

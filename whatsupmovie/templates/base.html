@@ -40,16 +40,6 @@
   {% block container %}{% endblock %}    
   </div>
 
-  <!-- /movie-detail, comment setting -->
-  <script>
-    const textarea = document.querySelector(".comment-textarea");
-  
-    textarea.oninput = function() {
-      textarea.style.height = "";
-      textarea.style.height = Math.min(textarea.scrollHeight) + "px";
-    }
-  </script>
-
   <script type="text/javascript" src="{% static 'jquery/dist/jquery.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'popper.js/dist/popper.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>

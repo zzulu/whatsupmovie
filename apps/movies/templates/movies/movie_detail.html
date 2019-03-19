@@ -77,4 +77,13 @@
   </div>
 </div>
 
+<script>
+  const textarea = document.querySelector(".comment-textarea");
+
+  textarea.oninput = function() {
+    textarea.style.height = "";
+    textarea.style.height = Math.min(textarea.scrollHeight) + "px";
+  }
+</script>
+
 {% endblock %}
