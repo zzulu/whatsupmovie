@@ -36,7 +36,7 @@ def get_secret(setting, secrets=secrets):
 SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True 
+DEBUG = False 
 
 ALLOWED_HOSTS = ['localhost','.compute.amazonaws.com','movie.hphk.io']
 
@@ -91,10 +91,22 @@ WSGI_APPLICATION = 'whatsupmovie.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': get_secret('DATABASE_HOST'),
+        'PORT': '3306', 
+        'NAME': 'whatsupmovie', 
+        'USER': get_secret('DATABASE_USERNAME'),    
+        'PASSWORD': get_secret('DATABASE_PASSWORD'),
     }
 }
+
+# For sqlite3
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 # Password validation
