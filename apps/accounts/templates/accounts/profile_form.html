@@ -42,24 +42,20 @@
   document.getElementById('id_image').addEventListener('change', function(e) {
     document.getElementById('label_image').innerHTML = event.target.files[0].name;
   })
-</script>
 
-<script>
-    const inputNickname = document.getElementById("id_nickname")
-    const inputAbout = document.getElementById("id_about")
-    const inputImage = document.getElementById("id_image")
-  
-    function focusOut() {
-      if (this.value != ""){
-          this.classList.add("has-content");
-      } else {
-          this.classList.remove("has-content")
-      }
+  const inputNickname = document.getElementById("id_nickname");
+  const inputAbout = document.getElementById("id_about");
+
+  function focusOut() {
+    if (this.value != ""){
+        this.classList.add("has-content");
+    } else {
+        this.classList.remove("has-content")
     }
-  
-    inputNickname.addEventListener("focusout", focusOut);
-    inputAbout.addEventListener("focusout", focusOut);
-    inputImage.addEventListener("focusout", focusOut);
-  </script>
+  }
+
+  inputNickname.addEventListener("focusout", focusOut);
+  inputAbout.addEventListener("focusout", focusOut);
+</script>
 
 {% endblock %}
